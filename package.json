@@ -1,0 +1,19 @@
+{
+  "name": "bruv",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.0",
+    "axios": "^0.27.2",
+    "discord-api-types": "^0.36.3",
+    "discord.js": "^13.6.0",
+    "mongoose": "^6.4.6"
+  }
+}
