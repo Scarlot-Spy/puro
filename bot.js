@@ -79,10 +79,13 @@ client.on('messageCreate', async (message) => {
         const embed = new Discord.MessageEmbed()
             .setTitle(`Hello, ${message.author.username}!`)
             .setColor("BLURPLE")
-            .setDescription(`My prefix is \`p!\` \nbut I also support \`slash commands\`\n\n I was made by [Scarlot (Spy)#6164](https://discord.com/users/902313445121212536)\n\n Vote for me at [here](https://radarbotdirectory.xyz/bot/983415009021399090/vote) \n\n Thanks for adding me and have fun!`)
-
+            .addField("About me", `I'm a multipurposed discord bot, \nI was developed by [Scarlot (Spy)#6164](https://discord.com/users/902313445121212536)!`)
+            .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)`)
+            .addField("Voting", `You can vote for me on these sites!\n[here](https://radarbotdirectory.xyz/bot/983415009021399090/vote)`)
+            .setFooter({text:`Thanks for adding me!`})
         message.reply({ embeds: [embed] })
     }
+    
 
     const args = message.content.slice(prefix.length).trim().split(' ');
     const command = args.shift().toLowerCase();
