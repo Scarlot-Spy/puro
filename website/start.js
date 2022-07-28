@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-module.exports = app
 const tickettans = require('../models/close');
 
 module.exports = {
@@ -17,10 +16,21 @@ module.exports = {
     }
 }
 
+app.set('view engine', 'ejs')
+app.set('views', __dirname+'/public')
+
 app.get('/', (req, res) => {
-    res.send("Hi!")
+    res.render('home', {
+        title: "Home"
+    })
 })
 
+
+/* 
+app.use((req, res) => {
+    res.send(`<center><h1>404</h1><br><h2>Couldn't find the webpage <code style="color: red">${req.url}</code>!<br>Try a different url!</h2></center>`)
+})
+*/
 
 app.listen(3000, () => {
     console.log("Started site!")

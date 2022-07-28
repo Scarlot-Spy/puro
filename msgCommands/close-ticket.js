@@ -1,5 +1,7 @@
 const { Permissions, PermissionFlagsBits, MessageActionRow, MessageButton } = require('discord.js'), Discord = require('discord.js')
 const ticketModel = require('../models/tickets')
+const ticketM = require("../models/ticket")
+const tranascript = require('discord-html-transcripts');
 
 module.exports = {
     usage: `<Close ID>`,
@@ -20,7 +22,32 @@ module.exports = {
         if (!ticket) return message.reply(`Ticket not found!`);
         await ticketModel.deleteOne({ guildID: message.guild.id, channelID: channel.id });
         channel.send(`Closing ticket...`)
-        setTimeout(() => {
+
+        setTimeout(async () => {
+            let link = await tranascript.createTranscript(channel, {
+                limit: 100,
+                returnType: 'string',
+                fileName: 'transcript.html',
+                minify: true,
+                saveImages: false,
+                useCDN: true
+            });
+
+            new global.close({
+                channelID: channel.id,
+                data: link
+            }).save()
+
+            global.app.get('/ticket/' + channel.id, (req, res) => {
+                res.send(link)
+            })
+
+            const tickets = await ticketM.findOne({ guildID: message.guild.id })
+
+            const c = await message.client.channels.cache.get(tickets.Channel)
+            if (!c) return message.author.send({ content: `Ticket: ${global.config.domain}/ticket/${channel.id}` })
+            c.send({ content: `Ticket: ${global.config.domain}/ticket/${channel.id}` })
+
             channel.delete()
         }, 1500)
     },

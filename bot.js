@@ -87,10 +87,10 @@ client.on('messageCreate', async (message) => {
             .addField("About me", `I'm a multipurposed discord bot, \nI was developed by [Scarlot (Spy)#6164](https://discord.com/users/902313445121212536)!`)
             .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)\n`)
             .addField("Voting", `You can vote for me on these sites!\n[here](https://radarbotdirectory.xyz/bot/983415009021399090/vote)`)
-            .setFooter({text:`Thanks for adding me!`})
+            .setFooter({ text: `Thanks for adding me!` })
         message.reply({ embeds: [embed] })
     }
-    
+
 
     const args = message.content.slice(prefix.length).trim().split(' ');
     const command = args.shift().toLowerCase();
@@ -104,7 +104,7 @@ client.on('messageCreate', async (message) => {
             if (!message.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES)) return;
             if (!message.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)) return message.reply(`❌ | I do not have the right privileges **[\`EMBED_LINKS\`]** to do this command!`)
 
-            if(cmd.name === 'ticket-setup') {
+            if (cmd.name === 'ticket-setup') {
                 if (!message.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) return message.reply(`❌ | I do not have the right privileges **[\`MANAGE_CHANNELS\`]** to do this command!`);
             }
 
@@ -119,7 +119,7 @@ client.on('messageCreate', async (message) => {
     if (!guilddat) return;
     else if (guilddat) {
         for (let i = 0; i < guilddat.array.length; i++) {
-            if (message.content.includes(guilddat.array[i].word) && !cmd) {
+            if (message.content.includes(guilddat.array[i].word.toUpperCase()) && !cmd || message.content.includes(guilddat.array[i].word.toLowerCase()) && !cmd) {
                 message.reply(guilddat.array[i].reply)
             }
         }
@@ -140,7 +140,7 @@ client.on('interactionCreate', async (interaction) => {
             if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES)) return;
             if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)) return interaction.reply(`❌ | I do not have the right privileges **[\`EMBED_LINKS\`]** to do this command!`)
 
-            if(command.name === 'ticket-setup') {
+            if (command.name === 'ticket-setup') {
                 if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply(`❌ | I do not have the right privileges **[\`MANAGE_CHANNELS\`]** to do this command!`);
             }
 

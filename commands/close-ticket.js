@@ -1,6 +1,7 @@
 const { Permissions, PermissionFlagsBits, MessageActionRow, MessageButton } = require('discord.js'), Discord = require('discord.js')
 const ticketModel = require('../models/tickets')
 const tranascript = require('discord-html-transcripts');
+const ticketM = require("../models/ticket")
 
 module.exports = {
     category: `Tickets`,
@@ -17,10 +18,6 @@ module.exports = {
         },
     ],
     async execute(interaction) {
-        let messagecollection = interaction.channel.messages.fetch({
-            limit: 100
-        });
-
         const id = interaction.options.getString('id');
 
         const channel = interaction.guild.channels.cache.get(id);
@@ -51,7 +48,7 @@ module.exports = {
                 res.send(link)
             })
 
-            interaction.user.send({ content: `Ticket: http://localhost:3000/ticket/${channel.id}` })
+            interaction.user.send({ content: `Ticket: ${global.config.domain}/ticket/${channel.id}` })
 
             channel.delete()
         }, 1500)

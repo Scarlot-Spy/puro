@@ -39,18 +39,41 @@ module.exports = {
 
         if (!args || args.length === 0) return message.reply(`You cannot setup a ticket menu without arguments. \n Please provide some arguments!`)
 
+
+
         const button1 = args[0]
         const button2 = args[1]
         const button3 = args[2];
-        const description = args.slice(3).join(" ");
+        const description = args.slice(4).join(" ");
+        let channel = ''
 
-        const setup = await ticketModel.findOne({ guildID: message.guild.id });
+        message.reply(`Please provide a channel to set as transcript channel!\n\n >*You can say it in chat!*`)
+        const filter = m => m.author.id === message.author.id;
+        const collector = message.channel.createMessageCollector({ filter: filter, time: 60000 });
 
-        if (!setup) {
+        collector.on('collect', m => {
+            if (m.content.includes("<#")) {
+                channel = m.content.toString();
+                collector.stop()
+            } else {
+                return message.reply(`Invalid channel, try again!`)
+            }
+        })
+
+        collector.on('end', collected => {
+            channel = channel.replace('<#', '').replace('>', '')
+
+            setup()
+        })
+
+        const setup = async () => {
+            const setup = await ticketModel.findOne({ guildID: message.guild.id });
+
             new ticketModel({
                 guildID: message.guild.id,
                 Buttons: [button1, button2, button3],
-                Description: description
+                Description: description,
+                Channel: channel
             }).save();
 
             message.reply({ content: `Successfully saved tickets!` }).then(ms => {
@@ -81,8 +104,6 @@ module.exports = {
                 .setFooter({ text: 'Tickets • Puro' })
 
             message.channel.send({ embeds: [embed], components: [row] })
-        } else if (setup) {
-            message.reply(`You've already setup tickets for this guild! \n > We are trying to make a new way for you to make mutliple tickets!`)
         }
     }
 }
