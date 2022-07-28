@@ -1,0 +1,55 @@
+body {
+    background-color: #4e5d94;
+    color: white;
+    overflow: visible
+}
+
+.active {
+    color: white;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: white;
+    font-size: 50px;
+}
+
+p {
+    color: #a3a2a2;
+    font-size: 25px;
+}
+
+
+.Images1 {
+    position: fixed;
+    top: 75%;
+    left: 40%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+
+.bounce2 {
+    animation: bounce2 5s ease infinite;
+}
+
+@keyframes bounce2 {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-30px);
+    }
+
+    60% {
+        transform: translateY(-15px);
+    }
+}

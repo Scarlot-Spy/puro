@@ -17,7 +17,11 @@
     "discord-transcript": "^2.0.9",
     "discord.js": "^13.6.0",
     "ejs": "^3.1.8",
+    "express-react-views": "^0.11.0",
+    "jsx": "^0.9.89",
     "mongoose": "^6.4.6",
+    "nodemon": "^2.0.19",
+    "react": "^18.2.0",
     "request": "^2.88.2"
   }
 }
