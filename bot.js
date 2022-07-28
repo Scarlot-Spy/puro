@@ -85,8 +85,8 @@ client.on('messageCreate', async (message) => {
             .setTitle(`Hello, ${message.author.username}!`)
             .setColor("BLURPLE")
             .addField("About me", `I'm a multipurposed discord bot, \nI was developed by [Scarlot (Spy)#6164](https://discord.com/users/902313445121212536)!`)
-            .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)\n`)
-            .addField("Voting", `You can vote for me on these sites!\n[here](https://radarbotdirectory.xyz/bot/983415009021399090/vote)`)
+            .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)\nDiscord: [Discord server](https://discord.gg/3YXRMFzxdt)`)
+            .addField("Voting", `You can vote for me on these sites!\n[radarbotdirectory.xyz](https://radarbotdirectory.xyz/bot/983415009021399090/vote)`)
             .setFooter({ text: `Thanks for adding me!` })
         message.reply({ embeds: [embed] })
     }
