@@ -6,6 +6,9 @@ module.exports = {
     CLIENTID: 'Bot Id',
     Mongodb: 'Mongodb URL',
     domain: "Website domain",
+    clientSecret: "Client Secret",
+    callbackURL: "/callback",
+    loginBotID: "Login Bot ID",
     botInfo: {
         Name: "Bot Name",
         Id: "Bot Id",

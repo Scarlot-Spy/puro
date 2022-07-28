@@ -1,10 +1,10 @@
 import React from 'react';
 const CheckLogin = () => {
-   if (global.user === false) {
-    return <a href="/login" class="btn btn-danger">Login</a>
-   } else {
-    return <a href="/dashboard" class="btn btn-danger">Dashboard</a>
-   }
+    if (!global.user) {
+        return <a href="/login" class="btn btn-danger">Login</a>
+    } else {
+        return <a href="/dashboard" class="btn btn-success">Dashboard</a>
+    }
 }
 class App extends React.Component {
     render() {
@@ -31,7 +31,7 @@ class App extends React.Component {
                             </ul>
                         </div>
                         {CheckLogin()}
-                        
+
                     </div>
                 </nav>
                 <center>
