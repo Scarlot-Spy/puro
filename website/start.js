@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const tickettans = require('../models/close');
 const reactViews = require('express-react-views');
+var DiscordStrategy = require('passport-discord').Strategy;
+global.user = false
 
 module.exports = {
     app,

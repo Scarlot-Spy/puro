@@ -192,11 +192,11 @@ client.on('interactionCreate', async (interaction) => {
         }
     }
 })
-/*
+
 client.login(
     global.config.TOKEN
 )
-*/
+
 const rest = new REST({ version: '10' }).setToken(global.config.TOKEN);
 
 (async () => {

@@ -21,6 +21,8 @@
     "jsx": "^0.9.89",
     "mongoose": "^6.4.6",
     "nodemon": "^2.0.19",
+    "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
     "react": "^18.2.0",
     "request": "^2.88.2"
   }
