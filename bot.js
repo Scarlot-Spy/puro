@@ -8,6 +8,10 @@ const guildModel = require('./models/guild')
 const ticketModel = require('./models/ticket')
 const ticket = require('./models/tickets');
 global.config = require('./configs/bots')
+global.app = require('./website/start.js').app
+require('./website/start.js').ticket()
+global.close = require('./models/close')
+
 const Shuffle = (statuses, time, client) => {
     client.user.setActivity(global.config.STATUSES[Math.floor(Math.random() * global.config.STATUSES.length)].replace('%s', client.user.username).replace('%g', client.guilds.cache.size).replace('%u', client.users.cache.size), { type: 'PLAYING' })
     setInterval(() => {
@@ -15,6 +19,7 @@ const Shuffle = (statuses, time, client) => {
     }, time);
 }
 const prefix = global.config.PREFIX
+
 
 client.commands = new Discord.Collection()
 client.messageCommands = new Discord.Collection()
@@ -80,7 +85,7 @@ client.on('messageCreate', async (message) => {
             .setTitle(`Hello, ${message.author.username}!`)
             .setColor("BLURPLE")
             .addField("About me", `I'm a multipurposed discord bot, \nI was developed by [Scarlot (Spy)#6164](https://discord.com/users/902313445121212536)!`)
-            .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)`)
+            .addField("Social Media", `You can find my social media stuff here! \nYoutube: [Youtube Link](https://www.youtube.com/channel/UCQI13LszOd04qZBa-L8ADuA)\n`)
             .addField("Voting", `You can vote for me on these sites!\n[here](https://radarbotdirectory.xyz/bot/983415009021399090/vote)`)
             .setFooter({text:`Thanks for adding me!`})
         message.reply({ embeds: [embed] })
@@ -133,10 +138,10 @@ client.on('interactionCreate', async (interaction) => {
 
         try {
             if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.SEND_MESSAGES)) return;
-            if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)) return message.reply(`❌ | I do not have the right privileges **[\`EMBED_LINKS\`]** to do this command!`)
+            if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.EMBED_LINKS)) return interaction.reply(`❌ | I do not have the right privileges **[\`EMBED_LINKS\`]** to do this command!`)
 
             if(command.name === 'ticket-setup') {
-                if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) return message.reply(`❌ | I do not have the right privileges **[\`MANAGE_CHANNELS\`]** to do this command!`);
+                if (!interaction.guild.me.permissions.has(Discord.Permissions.FLAGS.MANAGE_CHANNELS)) return interaction.reply(`❌ | I do not have the right privileges **[\`MANAGE_CHANNELS\`]** to do this command!`);
             }
 
             command.execute(interaction)
