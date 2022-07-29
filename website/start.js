@@ -4,6 +4,7 @@ const tickettans = require('../models/close');
 const reactViews = require('express-react-views');
 var DiscordStrategy = require('passport-discord').Strategy;
 var scopes = ['identify', 'guilds'];
+const { Permissions } = require('discord.js')
 global.user = false
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
@@ -53,6 +54,7 @@ app.get('/login', passport.authenticate('discord'));
 app.get('/callback', passport.authenticate('discord', {
     failureRedirect: '/'
 }), function (req, res) {
+    global.user = req.isAuthenticated() ? req.user : null
     res.redirect('/')
 });
 
@@ -61,9 +63,14 @@ passport.deserializeUser((obj, done) => done(null, obj));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/dashboard', (req, res) => {
+    res.render('dashboard', {
+        title: "Dashboard",
+        perms: Permissions
+    })
+})
 
 app.get('/', (req, res) => {
-    global.user = req.isAuthenticated() ? req.user : null
     res.render('home', {
         title: "Home"
     })

@@ -11,6 +11,7 @@ global.config = require('./configs/bots')
 global.app = require('./website/start.js').app
 require('./website/start.js').ticket()
 global.close = require('./models/close')
+global.client = client
 
 const Shuffle = (statuses, time, client) => {
     client.user.setActivity(global.config.STATUSES[Math.floor(Math.random() * global.config.STATUSES.length)].replace('%s', client.user.username).replace('%g', client.guilds.cache.size).replace('%u', client.users.cache.size), { type: 'PLAYING' })

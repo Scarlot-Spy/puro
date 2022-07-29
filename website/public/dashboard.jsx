@@ -1,17 +1,65 @@
 import React from 'react';
 import Discord from 'discord.js'
+const guilds = []
 
 const CheckLogin = () => {
     if (!global.user) {
-        return <a href="/login" class="btn btn-danger">Login</a>
+        return <script>window.location.href='/login'</script>
     } else {
         return <a href="/dashboard" class="btn btn-success">Dashboard</a>
     }
 }
+const redirect = () => {
+    if (!global.user) {
+        return <script>window.location.href='/login'</script>
+    }
+}
+const checkPerms = (guild) => {
+    const permsOnGuild = new Discord.Permissions(guild.permissions_new);
+    if (!permsOnGuild.has(Discord.Permissions.FLAGS.MANAGE_GUILD)) return;
+}
+const inviteOrmanage = (id) => {
+    if (global.client.guilds.cache.get(id)) {
+        return <a href="/dashboard/{id}" class="btn btn-primary">Manage</a>
+    } else {
+        return <a href="https://discord.com/oauth2/authorize?client_id=983415009021399090&permissions=1237890493686&scope=bot%20applications.commands&guild_id={id}" class="btn btn-primary">Invite</a>
+    }
+}
+const all = () => {
+    if (!global.user.guilds) return <>
+        <script>
+            window.location.href="/login"
+        </script>
+    </>
+    global.user.guilds.map(guild => {
+        if (global.client.guilds.cache.get(guild.id)) {
+            guilds.push(guild)
+        } else {
+            guilds.push({name: "Not found!", id: "0"})
+        }
+    })
+
+    guilds.map(guild => {
+        if (!guild) return <>
+            <script>
+                window.location.href="/login"
+            </script>
+        </>
+        if (guild) return <>
+            <div class="card" style={{ width: "18rem" }}>
+                <div class="card-body">
+                    <h5 class="card-title">{guild.name}</h5>
+                    {inviteOrmanage(guild.id)}
+                </div>
+            </div>
+        </>
+    })
+}
 class App extends React.Component {
     render() {
         return <>
-            <title>{global.config.botInfo.Name} | Home</title>
+            {redirect()}
+            <title>{global.config.botInfo.Name} | Dashboard</title>
             <body style={{ backgroundColor: '#4e5d94' }}>
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"></link>
                 <link rel="stylesheet" href="/css/home.css"></link>
@@ -37,17 +85,7 @@ class App extends React.Component {
 
                     </div>
                 </nav>
-                <center>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <h1>{global.config.botInfo.Name}</h1>
-                    <p>{global.config.botInfo.Description}</p>
-                </center>
+                {all()}
             </body>
         </>;
     }
